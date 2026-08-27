@@ -265,19 +265,18 @@
          go live. Until then it posts nowhere. Field API names below match
          Zoho's defaults (Last Name, Email, Phone, Description).
          =============================================================== -->
-    <form class="lead" action="https://crm.zoho.com/crm/WebToLeadForm" method="POST" onsubmit="return true;">
-      <input type="hidden" name="xnQsjsdp" value="ZOHO_FORM_ID_HERE">
-      <input type="hidden" name="zc_gad" value="">
-      <input type="hidden" name="xmIwtLD" value="ZOHO_SECRET_ID_HERE">
-      <input type="hidden" name="actionType" value="TGVhZHM=">
-      <input type="hidden" name="returnURL" value="https://www.mozyconstructions.com/thank-you.html">
-      <input type="hidden" name="Lead Source" value="Website">
+    <form class="lead" action="https://formsubmit.co/info@mozyconstructions.com" method="POST">
+      <input type="hidden" name="_subject" value="New Free Estimate Request — Mozy Construction">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_next" value="https://www.mozyconstructions.com/thank-you.html">
+      <input type="text" name="_honey" style="display:none">
 
-      <div class="fld"><label>Full Name</label><input name="Last Name" required placeholder="Your name"></div>
-      <div class="fld"><label>Phone</label><input name="Phone" type="tel" required placeholder="(000) 000-0000"></div>
-      <div class="fld"><label>Email</label><input name="Email" type="email" required placeholder="you@email.com"></div>
+      <div class="fld"><label>Full Name</label><input name="name" required placeholder="Your name"></div>
+      <div class="fld"><label>Phone</label><input name="phone" type="tel" required placeholder="(000) 000-0000"></div>
+      <div class="fld"><label>Email</label><input name="email" type="email" required placeholder="you@email.com"></div>
       <div class="fld"><label>Which service?</label>
-        <select name="LEADCF1">
+        <select name="service">
           <option>Full Home Renovation</option>
           <option>Kitchen Remodeling</option>
           <option>Bathroom Remodeling</option>
@@ -287,7 +286,7 @@
           <option>Other / Not sure</option>
         </select>
       </div>
-      <div class="fld"><label>Project details</label><textarea name="Description" placeholder="Tell us what you're planning..."></textarea></div>
+      <div class="fld"><label>Project details</label><textarea name="message" placeholder="Tell us what you're planning..."></textarea></div>
       <button type="submit" class="btn">Request My Free Estimate</button>
       <p class="fine">Licensed &amp; insured &middot; A Construction license (CGC 1535189) &middot; We reply within one business day.</p>
     </form>
