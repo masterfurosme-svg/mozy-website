@@ -1,0 +1,55 @@
+name: Deploy to Network Solutions
+
+# Sobe o site quando houver push na branch main (ou manualmente em Actions -> Run workflow).
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 1) Otimiza as imagens (redimensiona p/ no maximo 1920px e comprime).
+      #    O repositorio guarda o ORIGINAL; so a versao leve vai pro site.
+      - name: Optimize images
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y imagemagick jpegoptim
+          find assets -type f \( -iname '*.jpg' -o -iname '*.jpeg' \) -print0 | while IFS= read -r -d '' f; do
+            mogrify -auto-orient -resize '1920x1920>' "$f"
+            jpegoptim --strip-all --max=82 "$f" || true
+          done
+          echo "Imagens otimizadas."
+
+      # 2) Monta a pasta 'dist' com SO o que o site precisa (sem docs, previews, .git).
+      - name: Build deploy folder
+        run: |
+          mkdir -p dist
+          rsync -a \
+            --exclude='.git' --exclude='.github' --exclude='dist' \
+            --exclude='*.md' --exclude='*.data' --exclude='preview-*.html' \
+            --exclude='.gitignore' \
+            ./ dist/
+          echo "Conteudo do dist:"; find dist -maxdepth 2 -type f | head -40
+
+      # 3) Envia por SFTP para a Network Solutions.
+      #    Configure os SECRETS no GitHub (Settings -> Secrets and variables -> Actions):
+      #      SFTP_HOST           ex: sftp.mozyconstructions.com  (confirmar com a Network Solutions)
+      #      SFTP_USER           seu usuario de FTP/SFTP
+      #      SFTP_PASSWORD       sua senha de FTP/SFTP
+      #      SFTP_REMOTE_PATH    pasta publica do site, ex: /htdocs/ ou /public_html/ ou /www/
+      #      SFTP_PORT           normalmente 22 (SFTP). Se a NS so oferecer FTP, veja README-DEPLOY.md
+      - name: Deploy via SFTP
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.5
+        with:
+          server: ${{ secrets.SFTP_HOST }}
+          username: ${{ secrets.SFTP_USER }}
+          password: ${{ secrets.SFTP_PASSWORD }}
+          port: ${{ secrets.SFTP_PORT }}
+          local_path: './dist/*'
+          remote_path: ${{ secrets.SFTP_REMOTE_PATH }}
+          sftp_only: true

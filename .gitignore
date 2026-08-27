@@ -1,0 +1,10 @@
+# previews locais (gerados; nao vao pro deploy)
+preview-*.html
+
+# lixo de SO
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# downloads/zip temporarios
+*.zip
