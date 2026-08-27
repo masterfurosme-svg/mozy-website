@@ -222,6 +222,13 @@ form.lead .fine{color:var(--muted);font-size:12px;margin-top:12px;text-align:cen
 .compare .lose li::before{content:"\2715";position:absolute;left:0;color:var(--grey-2);font-weight:700}
 @media(max-width:680px){.compare{grid-template-columns:1fr}}
 
+/* floating WhatsApp button */
+.wa-float{position:fixed;right:20px;bottom:20px;z-index:80;width:56px;height:56px;border-radius:50%;
+  background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 22px rgba(0,0,0,.4);transition:transform .18s ease}
+.wa-float:hover{transform:scale(1.08)}
+.wa-float svg{width:33px;height:33px;fill:#fff}
+@media(max-width:680px){.wa-float{bottom:76px;right:16px;width:52px;height:52px}}
+
 /* sticky mobile call bar */
 .callbar{display:none}
 @media(max-width:680px){
