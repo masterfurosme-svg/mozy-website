@@ -265,18 +265,20 @@
          go live. Until then it posts nowhere. Field API names below match
          Zoho's defaults (Last Name, Email, Phone, Description).
          =============================================================== -->
-    <form class="lead" action="https://formsubmit.co/info@mozyconstructions.com" method="POST">
-      <input type="hidden" name="_subject" value="New Free Estimate Request — Mozy Construction">
-      <input type="hidden" name="_template" value="table">
-      <input type="hidden" name="_captcha" value="false">
-      <input type="hidden" name="_next" value="https://www.mozyconstructions.com/thank-you.html">
-      <input type="text" name="_honey" style="display:none">
+    <form class="lead" id="mozyLeadFormHome" action="https://crm.zoho.com/crm/WebToLeadForm" method="POST" accept-charset="UTF-8" onsubmit="return mozyPrepHome(this);">
+      <input type="text" style="display:none;" name="xnQsjsdp" value="cc840caa6f1774ce852df0d1a06259b023ecea37634a224608bea41f12846b7a">
+      <input type="hidden" name="zc_gad" value="">
+      <input type="text" style="display:none;" name="xmIwtLD" value="bda5c43fb159857da777e7f1fd3c25448abfdd6c487db2b3e497e454a7fa81ee74416e52054eef4e0020dbc1635988ef">
+      <input type="text" style="display:none;" name="actionType" value="TGVhZHM=">
+      <input type="text" style="display:none;" name="returnURL" value="https://www.mozyconstructions.com/thank-you.html">
+      <input type="hidden" name="Company" value="Residential (Homeowner)">
+      <input type="hidden" name="Lead Source" value="Website - Free Estimate Form">
 
-      <div class="fld"><label>Full Name</label><input name="name" required placeholder="Your name"></div>
-      <div class="fld"><label>Phone</label><input name="phone" type="tel" required placeholder="(000) 000-0000"></div>
-      <div class="fld"><label>Email</label><input name="email" type="email" required placeholder="you@email.com"></div>
+      <div class="fld"><label>Full Name</label><input name="Last Name" required placeholder="Your name"></div>
+      <div class="fld"><label>Phone</label><input name="Phone" type="tel" required placeholder="(000) 000-0000"></div>
+      <div class="fld"><label>Email</label><input name="Email" type="email" required placeholder="you@email.com"></div>
       <div class="fld"><label>Which service?</label>
-        <select name="service">
+        <select id="mozyServiceHome">
           <option>Full Home Renovation</option>
           <option>Kitchen Remodeling</option>
           <option>Bathroom Remodeling</option>
@@ -286,10 +288,21 @@
           <option>Other / Not sure</option>
         </select>
       </div>
-      <div class="fld"><label>Project details</label><textarea name="message" placeholder="Tell us what you're planning..."></textarea></div>
+      <div class="fld"><label>Project details</label><textarea name="Description" id="mozyMessageHome" placeholder="Tell us what you're planning..."></textarea></div>
+      <input type="text" style="display:none;" name="aG9uZXlwb3Q" value="">
       <button type="submit" class="btn">Request My Free Estimate</button>
       <p class="fine">Licensed &amp; insured &middot; A Construction license (CGC 1535189) &middot; We reply within one business day.</p>
     </form>
+    <script>
+    function mozyPrepHome(f){
+      try{
+        var svc=document.getElementById('mozyServiceHome');
+        var msg=document.getElementById('mozyMessageHome');
+        if(svc&&msg){ msg.value='Service requested: '+svc.value+(msg.value?('\n\n'+msg.value):''); }
+      }catch(e){}
+      return true;
+    }
+    </script>
   </div>
 </section>
 

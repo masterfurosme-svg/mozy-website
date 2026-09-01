@@ -35,23 +35,37 @@
     </div>
   </div>
 
-  <!-- ZOHO CRM Web-to-Lead form. Paste the real xnQsjsdp / xmIwtLD IDs + action URL from
-       Zoho CRM (Setup -> Developer Space -> Webforms -> Leads) to go live. -->
-  <form class="lead" action="https://formsubmit.co/info@mozyconstructions.com" method="POST">
-    <input type="hidden" name="_subject" value="New Free Estimate Request — Mozy Construction">
-    <input type="hidden" name="_template" value="table">
-    <input type="hidden" name="_captcha" value="false">
-    <input type="hidden" name="_next" value="https://www.mozyconstructions.com/thank-you.html">
-    <input type="text" name="_honey" style="display:none">
-    <div class="fld"><label>Full Name</label><input name="name" required placeholder="Your name"></div>
-    <div class="fld"><label>Phone</label><input name="phone" type="tel" required placeholder="(000) 000-0000"></div>
-    <div class="fld"><label>Email</label><input name="email" type="email" required placeholder="you@email.com"></div>
+  <!-- ZOHO CRM Web-to-Lead — LIVE. Maps to Zoho CRM webform "Mozy — Free Estimate" (Leads module, org 935437664).
+       IDs xnQsjsdp / xmIwtLD are the public webform tokens (visible in any published Zoho form). -->
+  <form class="lead" id="mozyLeadForm" action="https://crm.zoho.com/crm/WebToLeadForm" method="POST" accept-charset="UTF-8" onsubmit="return mozyPrep(this);">
+    <input type="text" style="display:none;" name="xnQsjsdp" value="cc840caa6f1774ce852df0d1a06259b023ecea37634a224608bea41f12846b7a">
+    <input type="hidden" name="zc_gad" id="zc_gad" value="">
+    <input type="text" style="display:none;" name="xmIwtLD" value="bda5c43fb159857da777e7f1fd3c25448abfdd6c487db2b3e497e454a7fa81ee74416e52054eef4e0020dbc1635988ef">
+    <input type="text" style="display:none;" name="actionType" value="TGVhZHM=">
+    <input type="text" style="display:none;" name="returnURL" value="https://www.mozyconstructions.com/thank-you.html">
+    <input type="hidden" name="Company" value="Residential (Homeowner)">
+    <input type="hidden" name="Lead Source" value="Website - Free Estimate Form">
+    <div class="fld"><label>Full Name</label><input name="Last Name" required placeholder="Your name"></div>
+    <div class="fld"><label>Phone</label><input name="Phone" type="tel" required placeholder="(000) 000-0000"></div>
+    <div class="fld"><label>Email</label><input name="Email" type="email" required placeholder="you@email.com"></div>
     <div class="fld"><label>Which service?</label>
-      <select name="service"><option>Full Home Renovation</option><option>Kitchen Remodeling</option><option>Bathroom Remodeling</option><option>Flooring</option><option>Painting</option><option>Pavers &amp; Outdoor</option><option>Sliding Door Repair</option><option>Other / Not sure</option></select></div>
-    <div class="fld"><label>Project details</label><textarea name="message" placeholder="Tell us what you're planning..."></textarea></div>
+      <select id="mozyService"><option>Full Home Renovation</option><option>Kitchen Remodeling</option><option>Bathroom Remodeling</option><option>Flooring</option><option>Painting</option><option>Pavers &amp; Outdoor</option><option>Sliding Door Repair</option><option>Other / Not sure</option></select></div>
+    <div class="fld"><label>Project details</label><textarea name="Description" id="mozyMessage" placeholder="Tell us what you're planning..."></textarea></div>
+    <input type="text" style="display:none;" name="aG9uZXlwb3Q" value="">
     <button type="submit" class="btn">Request My Free Estimate</button>
     <p class="fine">Licensed &amp; insured &middot; A Construction license (CGC 1535189) &middot; We reply within one business day.</p>
   </form>
+  <script>
+  // Fold the selected service into the Description so it reaches the CRM (Zoho webform has no Service field).
+  function mozyPrep(f){
+    try{
+      var svc=document.getElementById('mozyService');
+      var msg=document.getElementById('mozyMessage');
+      if(svc&&msg){ msg.value='Service requested: '+svc.value+(msg.value?('\n\n'+msg.value):''); }
+    }catch(e){}
+    return true;
+  }
+  </script>
 </div></section>
 
 <footer class="site-footer"><div class="container"><div class="foot-grid">
